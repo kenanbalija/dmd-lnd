@@ -113,28 +113,34 @@ a{color:inherit;text-decoration:none}
   padding:6px 14px;border-radius:999px;margin-bottom:20px;
 }
 .hero h1{
-  font-size:clamp(2.4rem,5.5vw,4.2rem);
+  font-size:clamp(2.1rem,5.5vw,4.2rem);
   font-weight:900;letter-spacing:-.03em;line-height:1.02;
   margin-bottom:20px;
 }
+.hero p.lead{max-width:34ch}
 .hero h1 em{font-style:italic;color:var(--accent);line-height:1.1;padding-bottom:.05em;display:inline-block}
 .hero p.lead{
   font-size:1.15rem;color:var(--ink-soft);max-width:34ch;margin-bottom:32px;
 }
 .hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.cta-short{display:none}
+@media (max-width:400px){
+  .cta-full{display:none}
+  .cta-short{display:inline}
+}
 
-/* Hero visual — charm collage */
+/* Hero visual — charm collage (desktop: floating, mobile: 2x2 grid) */
 .hero-visual{position:relative;min-height:380px}
-@media (max-width:860px){.hero-visual{min-height:320px}}
 .charm-card{
   position:absolute;border-radius:var(--r-card);
   background:var(--card);border:1px solid var(--line);
   box-shadow:var(--shadow);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:8px;font-weight:600;font-size:.85rem;color:var(--ink-soft);
+  text-align:center;padding:8px;
   animation:floaty 6s ease-in-out infinite;
 }
-.charm-card svg{width:44px;height:44px}
+.charm-card svg{width:44px;height:44px;flex-shrink:0}
 .cc-1{width:46%;aspect-ratio:1;left:0;top:6%;animation-delay:0s;transform:rotate(-4deg)}
 .cc-2{width:40%;aspect-ratio:1;right:4%;top:0;animation-delay:1.2s;transform:rotate(3deg)}
 .cc-3{width:38%;aspect-ratio:1;left:14%;bottom:0;animation-delay:2.1s;transform:rotate(2deg)}
@@ -142,6 +148,18 @@ a{color:inherit;text-decoration:none}
 @keyframes floaty{
   0%,100%{translate:0 0}
   50%{translate:0 -10px}
+}
+@media (max-width:860px){
+  .hero-visual{
+    min-height:0;
+    display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  }
+  .charm-card{
+    position:static;width:auto;aspect-ratio:1;
+    transform:none;animation:none;
+    font-size:.9rem;
+  }
+  .charm-card svg{width:38px;height:38px}
 }
 @media (prefers-reduced-motion:reduce){
   .charm-card{animation:none}
@@ -160,8 +178,10 @@ a{color:inherit;text-decoration:none}
 
 /* ---------- Sections ---------- */
 section{padding:88px 0}
-@media (max-width:720px){section{padding:64px 0}}
+@media (max-width:720px){section{padding:56px 0}}
+@media (max-width:480px){section{padding:44px 0}}
 .section-head{max-width:560px;margin-bottom:48px}
+@media (max-width:720px){.section-head{margin-bottom:32px}}
 .section-head .kicker{
   color:var(--accent);font-weight:700;text-transform:uppercase;
   letter-spacing:.1em;font-size:.8rem;margin-bottom:12px;display:block;
@@ -221,6 +241,7 @@ section{padding:88px 0}
   border-radius:var(--r-card);padding:40px 32px;
   border:1px solid var(--line);
 }
+@media (max-width:600px){.duo-card{padding:28px 22px}}
 .duo-card.pink{background:var(--accent);color:#fff;border-color:transparent}
 .duo-card.pink p{color:rgba(255,255,255,.85)}
 .duo-card.plain{background:var(--card)}
@@ -245,6 +266,7 @@ section{padding:88px 0}
   border-radius:var(--r-card);overflow:hidden;border:1px solid var(--line);
   box-shadow:var(--shadow);aspect-ratio:4/3;
 }
+@media (max-width:600px){.map-frame{aspect-ratio:1/1}}
 .map-frame iframe{width:100%;height:100%;border:0;display:block}
 
 /* ---------- Footer ---------- */
@@ -252,7 +274,11 @@ footer{
   border-top:1px solid var(--line);padding:48px 0 40px;
 }
 .footer-inner{
-  display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;
+  display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;align-items:flex-start;
+}
+@media (max-width:720px){
+  .footer-inner{grid-template-columns:1fr 1fr;gap:28px}
+  .footer-inner > :first-child{grid-column:1 / -1}
 }
 .footer-inner .logo{margin-bottom:10px}
 footer p{color:var(--ink-soft);font-size:.92rem;max-width:36ch}
@@ -300,7 +326,8 @@ footer p{color:var(--ink-soft);font-size:.92rem;max-width:36ch}
       <div class="hero-ctas">
         <a class="btn" href="https://www.instagram.com/dmd.lnd/" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg>
-          Piši nam na Instagramu
+          <span class="cta-full">Piši nam na Instagramu</span>
+          <span class="cta-short">Instagram</span>
         </a>
         <a class="btn btn-ghost" href="#lokacija">Posjeti nas u SCC-u</a>
       </div>
